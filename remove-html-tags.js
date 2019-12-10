@@ -1,4 +1,4 @@
-const csstree = require('css-tree');
+const stripCSSComments = require('strip-css-comments');
 
 const test = (text) => {
   const domParser = new DOMParser();
@@ -10,13 +10,7 @@ const test = (text) => {
 
 
 function removeCSSComments(node) {
-  const ast  = csstree.parse(node.innerText);
-  global.ast = ast;
-  csstree.toPlainObject(ast);
-  ast.children = ast.children.filter(node => node.type !== 'Comment');
-  csstree.fromPlainObject(ast);
-
-  node.innerText = csstree.generate(ast);
+  node.innerText = stripCSSComments(node.innerText, { preserve: false});
 }
 
 function removeNode(node) {
