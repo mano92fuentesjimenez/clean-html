@@ -1,4 +1,4 @@
-const stripCSSComments = require('strip-css-comments');
+const csstree = require('css-tree');
 const {minify} = require('./src/htmlminifier');
 
 const test = (text) => {
@@ -15,7 +15,13 @@ const test = (text) => {
 
 
 function removeCSSComments(node) {
-  // node.innerText = stripCSSComments(node.innerText, { preserve: false});
+  const ast  = csstree.parse(node.innerText);
+  global.ast = ast;
+  csstree.toPlainObject(ast);
+  ast.children = ast.children.filter(node => node.type !== 'Comment');
+  csstree.fromPlainObject(ast);
+
+  node.innerText = csstree.generate(ast);
 }
 
 function removeNode(node) {
