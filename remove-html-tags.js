@@ -1,16 +1,21 @@
 const stripCSSComments = require('strip-css-comments');
+const {minify} = require('./src/htmlminifier');
 
 const test = (text) => {
   const domParser = new DOMParser();
   const parsed = domParser.parseFromString(text,"text/html");
   traverse(null, parsed);
+  console.log(parsed.documentElement.outerHTML);
 
-  return parsed.documentElement.outerHTML;
+  return minify(parsed.documentElement.outerHTML, {
+    collapseBooleanAttributes: true,
+    collapseWhitespace: true,
+  });
 };
 
 
 function removeCSSComments(node) {
-  node.innerText = stripCSSComments(node.innerText, { preserve: false});
+  // node.innerText = stripCSSComments(node.innerText, { preserve: false});
 }
 
 function removeNode(node) {

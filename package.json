@@ -11,6 +11,8 @@
     "@babel/core": "^7.0.0"
   },
   "dependencies": {
+    "he": "^1.2.0",
+    "relateurl": "^0.2.7",
     "strip-css-comments": "^4.1.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
