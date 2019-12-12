@@ -13,6 +13,7 @@
   "dependencies": {
     "css-tree": "^1.0.0-alpha.39",
     "he": "^1.2.0",
+    "lodash": "^4.17.15",
     "relateurl": "^0.2.7",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
