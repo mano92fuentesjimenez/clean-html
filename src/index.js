@@ -2,7 +2,7 @@ const csstree = require('css-tree');
 const {minify} = require('./htmlminifier');
 const {range} = require('lodash');
 
-export default (text) => {
+const minifyHTML =(text) => {
   const domParser = new DOMParser();
   const parsed = domParser.parseFromString(text,"text/html");
   traverse(null, parsed);
@@ -13,6 +13,7 @@ export default (text) => {
   });
 };
 
+export default minifyHTML;
 
 function removeCSSComments(node) {
   const ast  = csstree.parse(node.innerText);
@@ -61,3 +62,5 @@ function traverse(parentNode, node){
   for( let childNode of node.childNodes)
     traverse(node, childNode);
 }
+
+global.minifyHTML = minifyHTML;
