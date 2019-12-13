@@ -1,9 +1,5 @@
 module.exports = {
-  entry: './remove-html-tags.js',
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-  },
+  entry: './src/index',
   output: {
     filename: 'main.js',
   },

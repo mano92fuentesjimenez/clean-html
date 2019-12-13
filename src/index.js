@@ -1,5 +1,5 @@
 const csstree = require('css-tree');
-const {minify} = require('./src/htmlminifier');
+const {minify} = require('./htmlminifier');
 const {range} = require('lodash');
 
 export default (text) => {
@@ -41,8 +41,8 @@ function removeNgAttributes(node) {
 
   range(attributes.length)
     .filter(i => {
-        return ngTest.test(attributes[i].name)
-      })
+      return ngTest.test(attributes[i].name)
+    })
     .map(i => attributes[i].name)
     .forEach(name => attributes.removeNamedItem(name))
 }
