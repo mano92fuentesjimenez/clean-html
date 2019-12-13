@@ -2,7 +2,7 @@ const csstree = require('css-tree');
 const {minify} = require('./src/htmlminifier');
 const {range} = require('lodash');
 
-const test = (text) => {
+export default (text) => {
   const domParser = new DOMParser();
   const parsed = domParser.parseFromString(text,"text/html");
   traverse(null, parsed);
@@ -48,7 +48,7 @@ function removeNgAttributes(node) {
 }
 function traverse(parentNode, node){
   if(node.visited)
-    return
+    return;
   node.visited = true;
   if(removeNode(node))
     return parentNode.removeChild(node);
@@ -61,5 +61,3 @@ function traverse(parentNode, node){
   for( let childNode of node.childNodes)
     traverse(node, childNode);
 }
-
-global.test = test;
