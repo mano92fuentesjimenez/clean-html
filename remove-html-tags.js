@@ -33,7 +33,7 @@ function removeNode(node) {
   if(node instanceof HTMLStyleElement)
     removeCSSComments(node)
 }
-const ngTest = /^((ng)|(rj))-/;
+const ngTest = /^ng-/;
 function removeNgAttributes(node) {
   const attributes = node.attributes;
   if(!attributes)
