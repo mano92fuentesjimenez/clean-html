@@ -1,15 +1,30 @@
 {
-  "name": "remove-html-tags",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "clean-html",
+  "description": "Clean html by minifying html, striping comments, removing js, removing ng attributes and removing whitespaces",
+  "version": "0.1.0",
+  "main": "./dist/main.js",
   "license": "MIT",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "prepublish": "npm build"
   },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "clean",
+    "html",
+    "ng",
+    "angular",
+    "css",
+    "minify",
+    "browser"
+  ],
   "devDependencies": {},
   "dependencies": {
     "css-tree": "^1.0.0-alpha.39",
     "he": "^1.2.0",
+    "html-minifier": "^4.0.0",
     "lodash": "^4.17.15",
     "relateurl": "^0.2.7",
     "webpack": "^4.41.2",
