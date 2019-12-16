@@ -1,5 +1,5 @@
 {
-  "name": "clean-html",
+  "name": "@miggy92/clean-html",
   "description": "Clean html by minifying html, striping comments, removing js, removing ng attributes and removing whitespaces",
   "version": "0.1.0",
   "main": "./dist/main.js",
