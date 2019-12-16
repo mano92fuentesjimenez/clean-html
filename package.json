@@ -1,11 +1,11 @@
 {
   "name": "@miggy92/clean-html",
   "description": "Clean html by minifying html, striping comments, removing js, removing ng attributes and removing whitespaces",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "./dist/main.js",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --prod",
     "prepublish": "npm build"
   },
   "bugs": {
