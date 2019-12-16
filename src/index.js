@@ -1,4 +1,4 @@
-const csstree = require('css-tree');
+const {parse, toPlainObject, fromPlainObject, generate} = require('css-tree');
 const {range} = require('lodash');
 const {minify} = require('./htmlminifier');
 
@@ -28,13 +28,12 @@ const minifyHTML =(text, {
 export default minifyHTML;
 
 function removeCSSComments(node) {
-  const ast  = csstree.parse(node.innerText);
-  global.ast = ast;
-  csstree.toPlainObject(ast);
+  const ast  = parse(node.innerText);
+  toPlainObject(ast);
   ast.children = ast.children.filter(node => node.type !== 'Comment');
-  csstree.fromPlainObject(ast);
+  fromPlainObject(ast);
 
-  node.innerText = csstree.generate(ast);
+  node.innerText = generate(ast);
 }
 
 function removeNode(node, options) {
