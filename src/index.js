@@ -1,15 +1,27 @@
 const csstree = require('css-tree');
-const {minify} = require('./htmlminifier');
 const {range} = require('lodash');
+const {minify} = require('./htmlminifier');
 
-const minifyHTML =(text) => {
+const minifyHTML =(text, {
+  collapseBooleanAttributes = true,
+  collapseWhitespace = true,
+  removeNgAttributes = true,
+  removeCssComments = true,
+  removeHTMLComments = true,
+  removeJS = true,
+}) => {
   const domParser = new DOMParser();
   const parsed = domParser.parseFromString(text,"text/html");
-  traverse(null, parsed);
+  traverse(null, parsed, {
+    removeNgAttributes,
+    removeCssComments,
+    removeHTMLComments,
+    removeJS
+  });
 
   return minify(parsed.documentElement.outerHTML, {
-    collapseBooleanAttributes: true,
-    collapseWhitespace: true,
+    collapseBooleanAttributes,
+    collapseWhitespace,
   });
 };
 
@@ -25,13 +37,13 @@ function removeCSSComments(node) {
   node.innerText = csstree.generate(ast);
 }
 
-function removeNode(node) {
-  if(node.nodeType === Node.COMMENT_NODE)
+function removeNode(node, options) {
+  if(options.removeHTMLComments && node.nodeType === Node.COMMENT_NODE)
     return true;
-  if(node instanceof HTMLScriptElement)
+  if(options.removeJS && node instanceof HTMLScriptElement)
     return true;
 
-  if(node instanceof HTMLStyleElement)
+  if(options.removeCssComments && node instanceof HTMLStyleElement)
     removeCSSComments(node)
 }
 const ngTest = /^ng-/;
@@ -47,20 +59,21 @@ function removeNgAttributes(node) {
     .map(i => attributes[i].name)
     .forEach(name => attributes.removeNamedItem(name))
 }
-function traverse(parentNode, node){
+function traverse(parentNode, node, options){
   if(node.visited)
     return;
   node.visited = true;
-  if(removeNode(node))
+  if(removeNode(node, options))
     return parentNode.removeChild(node);
 
-  removeNgAttributes(node);
+  if(options.removeNgAttributes)
+    removeNgAttributes(node);
 
   if(node.children)
     for( let childNode of node.children)
-      traverse(node, childNode);
+      traverse(node, childNode, options);
   for( let childNode of node.childNodes)
-    traverse(node, childNode);
+    traverse(node, childNode, options);
 }
 
 global.minifyHTML = minifyHTML;
