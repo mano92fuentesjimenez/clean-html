@@ -74,5 +74,3 @@ function traverse(parentNode, node, options){
   for( let childNode of node.childNodes)
     traverse(node, childNode, options);
 }
-
-global.minifyHTML = minifyHTML;
