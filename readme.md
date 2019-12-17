@@ -2,7 +2,7 @@ HTML cleaning tool that works in the browser based on https://github.com/kangax/
 
 usage is
 ```js
-const minify = require('clean-html');
+const minify = require('html-browser-minifier');
 const minifiedText = minify(text, options);
 ```
 Options are
